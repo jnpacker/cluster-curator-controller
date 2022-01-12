@@ -29,6 +29,7 @@ type ClusterCuratorReconciler struct {
 	Log      logr.Logger
 	Scheme   *runtime.Scheme
 	ImageURI string
+	ctx      context.Context
 }
 
 // +kubebuilder:rbac:groups=cluster.open-cluster-management.io.cluster.open-cluster-management.io,resources=clustercurators,verbs=get;list;watch;create;update;patch;delete
@@ -37,6 +38,7 @@ type ClusterCuratorReconciler struct {
 func (r *ClusterCuratorReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	//ctx := context.Background()
 	log := r.Log.WithValues("clustercurator", req.NamespacedName)
+	r.ctx = context.Background()
 
 	var curator clustercuratorv1.ClusterCurator
 	if err := r.Get(ctx, req.NamespacedName, &curator); err != nil {
@@ -56,6 +58,11 @@ func (r *ClusterCuratorReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 
 	log.V(3).Info("Reconcile: %v, DesiredCuration: %v, Previous CuratingJob: %v",
 		req.NamespacedName, curator.Spec.DesiredCuration, curator.Spec.CuratingJob)
+
+	if curator.Spec.Hypershift != nil {
+		return ctrl.Result{}, nil
+		//r.ReconcileHypershift(&curator)
+	}
 
 	// Curating work has already started OR no curation work supplied curator.Spec.CuratingJob != "" ||
 	if curator.Spec.CuratingJob != "" || curator.Spec.DesiredCuration == "" {

@@ -11,6 +11,7 @@ require (
 	github.com/openshift/api v3.9.1-0.20191111211345-a27ff30ebf09+incompatible
 	github.com/openshift/hive v1.1.16
 	github.com/openshift/hive/apis v0.0.0
+	github.com/openshift/hypershift/api v0.0.0-20210826030201-9e6982f7554e
 	//	github.com/openshift/api v3.9.1-0.20191111211345-a27ff30ebf09+incompatible
 	github.com/stretchr/testify v1.7.0
 	gopkg.in/yaml.v2 v2.4.0
