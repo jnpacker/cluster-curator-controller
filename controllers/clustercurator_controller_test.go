@@ -45,7 +45,7 @@ func getHypershiftUpgradeDoneCurator() *clustercuratorv1.ClusterCurator {
 					Type:               "clustercurator-job",
 					Status:             metav1.ConditionTrue,
 					Reason:             "JobHasFinished",
-					Message:            "curator-job-abc DesiredCuration: upgrade Version (4.11.4;;;;)",
+					Message:            "curator-job-abc DesiredCuration: upgrade Version (4.11.4;;)",
 					LastTransitionTime: metav1.Now(),
 				},
 			},
